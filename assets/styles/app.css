@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 99vh;
+    width: 100vw;
+    font-family: "Syne", "Inter", "Roboto", serif;
+}
