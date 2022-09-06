@@ -7,8 +7,9 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\Admin
+                class: App\Entity\Franchise
                 property: email
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -19,11 +20,17 @@ security:
             form_login:
                 login_path: connexion
                 check_path: connexion
-                enable_csrf: true
-                username_parameter: email
                 default_target_path: home
+        secured_area:
+            form_login:
+                enable_csrf: true
+            custom_authenticator: App\Security\FranchiseAuthenticator
+            entry_point: form_login
             logout:
-                path: logout
+                path: app_logout
+                target: home
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -35,7 +42,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:
