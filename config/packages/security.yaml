@@ -20,15 +20,13 @@ security:
             form_login:
                 login_path: connexion
                 check_path: connexion
-                default_target_path: home
-        secured_area:
-            form_login:
                 enable_csrf: true
-            custom_authenticator: App\Security\FranchiseAuthenticator
-            entry_point: form_login
+                default_target_path: home
             logout:
-                path: app_logout
+                path: logout
                 target: home
+
+
                 # where to redirect after logout
                 # target: app_any_route
 
