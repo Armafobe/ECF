@@ -7,9 +7,8 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\Franchise
+                class: App\Entity\User
                 property: email
-        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -18,13 +17,14 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: connexion
-                check_path: connexion
-                enable_csrf: true
-                default_target_path: home
+                login_path: app_login
+                check_path: app_login
             logout:
-                path: logout
+                path: deconnexion
                 target: home
+        secured_area:
+            form_login:
+                enable_csrf: true
 
 
                 # where to redirect after logout
@@ -40,7 +40,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/login, roles: ROLE_USER }
 
 when@test:
     security:
