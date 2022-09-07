@@ -2,23 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\StructureRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[ORM\Entity(repositoryClass: StructureRepository::class)]
+class Structure implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
@@ -32,13 +28,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Structure::class)]
-    private Collection $structures;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $address = null;
 
-    public function __construct()
-    {
-        $this->structures = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'structures')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -110,44 +105,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getName(): ?string
+    public function getAddress(): ?string
     {
-        return $this->name;
+        return $this->address;
     }
 
-    public function setName(string $name): self
+    public function setAddress(string $address): self
     {
-        $this->name = $name;
+        $this->address = $address;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Structure>
-     */
-    public function getStructures(): Collection
+    public function getUser(): ?User
     {
-        return $this->structures;
+        return $this->user;
     }
 
-    public function addStructure(Structure $structure): self
+    public function setUser(?User $user): self
     {
-        if (!$this->structures->contains($structure)) {
-            $this->structures->add($structure);
-            $structure->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStructure(Structure $structure): self
-    {
-        if ($this->structures->removeElement($structure)) {
-            // set the owning side to null (unless already changed)
-            if ($structure->getUser() === $this) {
-                $structure->setUser(null);
-            }
-        }
+        $this->user = $user;
 
         return $this;
     }

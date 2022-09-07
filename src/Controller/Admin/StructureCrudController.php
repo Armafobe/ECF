@@ -2,33 +2,39 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Structure;
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserCrudController extends AbstractCrudController
+class StructureCrudController extends AbstractCrudController
 {
     private UserPasswordHasherInterface $passwordEncoder;
 
     public static function getEntityFqcn(): string
     {
-        return User::class;
+        return Structure::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name'),
+            TextField::new('address'),
             EmailField::new('email'),
-            TextField::new('password')
+            TextField::new('password'),
+            AssociationField::new('user')->autocomplete()
         ];
     }
 
