@@ -4,8 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Structure;
 use App\Entity\User;
-use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -13,7 +11,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -31,10 +28,10 @@ class StructureCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('address'),
+            TextField::new('address', 'Adresse'),
             EmailField::new('email'),
-            TextField::new('password'),
-            AssociationField::new('user')->autocomplete()
+            TextField::new('password', 'Mot de passe'),
+            AssociationField::new('user', 'Ville')->autocomplete()
         ];
     }
 
