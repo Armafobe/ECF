@@ -35,6 +35,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Structure::class, cascade: ["persist", "remove"])]
     private Collection $structures;
 
+    private array $permissions = [
+        "Vendre des boissons",
+        "Planning équipe"
+    ];
+
     public function __construct()
     {
         $this->structures = new ArrayCollection();
@@ -64,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -150,5 +155,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getPermissions(): array
+    {
+        return $this->permissions;
     }
 }

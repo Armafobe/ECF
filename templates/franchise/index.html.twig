@@ -3,7 +3,30 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block content %}
-    <div class="flex w-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto divide-y divide-gray-200 w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
+        <div class="px-4 py-5 text-center sm:px-6">
+            Vos permissions
+        </div>
+        <div class="px-4 py-5 sm:p-6">
+            <ul class="space-y-2">
+                {% for permission in permissions %}
+                <li class="text-slate-700">
+                   {{ permission }}
+                    <div class="inline form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                        <label class="sr-only">Activer</label>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="mx-auto divide-y divide-gray-200 w-1/2 overflow-hidden rounded-lg my-4 bg-white shadow">
+        <div class="px-4 py-5 text-center sm:px-6">
+            Vos structures
+        </div>
+        <div class="px-4 py-5 sm:p-6">
         <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {% for structure in structures %}
             <li class="col-span-3 divide-y divide-gray-200 rounded-lg bg-white shadow">
@@ -32,5 +55,6 @@
             </li>
             {% endfor %}
         </ul>
+        </div>
     </div>
 {% endblock %}
