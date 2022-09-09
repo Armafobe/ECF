@@ -31,7 +31,9 @@ class StructureCrudController extends AbstractCrudController
             TextField::new('address', 'Adresse'),
             EmailField::new('email'),
             TextField::new('password', 'Mot de passe'),
-            AssociationField::new('user', 'Ville')->autocomplete()
+            AssociationField::new('user', 'Ville')->autocomplete()->formatValue(function ($value, Structure $structure) {
+                return $structure->getUser()->getName();
+            })
         ];
     }
 
