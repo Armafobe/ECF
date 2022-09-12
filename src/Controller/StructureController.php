@@ -18,13 +18,18 @@ class StructureController extends AbstractController
 
         $structure = $doctrine->getRepository(Structure::class)->findOneBy(array('id' => $id));
 
+        if ($this->getUser()->getRoles() != ['ROLE_ADMIN']) {
+            $permissions = $this->getUser()->getPermissions();
+        }
+
         if (!$franchise) {
             return $this->redirectToRoute('connexion');
         }
 
         return $this->render('structure/index.html.twig', [
             'structure' => $structure,
-            'franchise' => $franchise
+            'franchise' => $franchise,
+            'permissions' => $permissions
         ]);
     }
 }

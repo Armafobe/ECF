@@ -10,26 +10,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FranchiseController extends AbstractController
 {
-    public function permissions()
-    {
-
-    }
-
     #[Route('/haltere-ego-{name}', name: 'compte')]
     public function show(ManagerRegistry $doctrine, $name, User $user): Response
     {
         $franchise = $doctrine->getRepository(User::class)->findOneBy(array('name' => $name));
-        $getname = $this->getUser()->getName();
+        $getuser = $this->getUser();
         $structures = $user->getStructures();
         $permissions = $franchise->getPermissions();
 
-        if ($name != $getname) {
-            return $this->redirectToRoute('compte', ['name' => $getname]);
+        if ($getuser->getRoles() != ['ROLE_ADMIN'] && $name != $getuser->getName()) {
+            return $this->redirectToRoute('compte', ['name' => $getuser->getName()]);
         }
 
-        if (!$franchise) {
-            return $this->redirectToRoute('connexion');
-        }
+//        if (!$franchise) {
+//            return $this->redirectToRoute('connexion');
+//        }
 
         return $this->render('franchise/index.html.twig', [
             'structures' => $structures,
