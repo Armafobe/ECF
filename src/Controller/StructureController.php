@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Structure;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +20,9 @@ class StructureController extends AbstractController
 
         $structure = $doctrine->getRepository(Structure::class)->findOneBy(array('id' => $id));
 
-        if ($this->getUser()->getRoles() != ['ROLE_ADMIN']) {
+        if ($this->getUser()->getRoles() == ['ROLE_ADMIN']) {
+            $permissions = (new \App\Entity\User)->getPermissions();
+        } else {
             $permissions = $this->getUser()->getPermissions();
         }
 

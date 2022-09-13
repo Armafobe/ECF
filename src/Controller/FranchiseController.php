@@ -14,12 +14,12 @@ class FranchiseController extends AbstractController
     public function show(ManagerRegistry $doctrine, $name, User $user): Response
     {
         $franchise = $doctrine->getRepository(User::class)->findOneBy(array('name' => $name));
-        $getuser = $this->getUser();
+        $getUser = $this->getUser();
         $structures = $user->getStructures();
         $permissions = $franchise->getPermissions();
 
-        if ($getuser->getRoles() != ['ROLE_ADMIN'] && $name != $getuser->getName()) {
-            return $this->redirectToRoute('compte', ['name' => $getuser->getName()]);
+        if ($getUser->getRoles() != ['ROLE_ADMIN'] && $name != $getUser->getName()) {
+            return $this->redirectToRoute('compte', ['name' => $getUser->getName()]);
         }
 
 //        if (!$franchise) {
@@ -29,6 +29,7 @@ class FranchiseController extends AbstractController
         return $this->render('franchise/index.html.twig', [
             'structures' => $structures,
             'franchise' => $franchise,
+            'user' => $getUser,
             'permissions' => $permissions
         ]);
     }

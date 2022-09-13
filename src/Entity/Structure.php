@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: StructureRepository::class)]
+#[ORM\Table(name: 'structure')]
 class Structure implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

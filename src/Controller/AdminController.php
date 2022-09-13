@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Structure;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,8 @@ class AdminController extends AbstractController
         $users = $doctrine->getRepository(User::class)->findAll();
 
         return $this->render('admin/index.html.twig', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
+
 }

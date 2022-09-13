@@ -62,10 +62,9 @@ class StructureRepository extends ServiceEntityRepository implements PasswordUpg
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
+//            ->select('count(s.name)')
+//            ->andWhere('s.name = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;

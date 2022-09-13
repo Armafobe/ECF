@@ -9,15 +9,20 @@
             <li class="col-span-3 my-4 divide-y divide-gray-200 rounded-lg bg-white shadow">
                 <div class="flex items-center justify-between space-x-6 p-6">
                     <div class="flex-1 truncate">
-                        <div class="flex items-center space-x-3">
-                            <h3 class="truncate text-sm font-medium text-amber-900">{{ user.name }}</h3>
-{#                            {% if active %}#}
+                        <div class="flex items-center space-x-2">
+                            <div class="ml-1 form-check form-switch">
+                                <label for="{{ user.id }}" class="truncate text-sm font-medium text-amber-900">{{ user.name }}</label>
+                                <input id="{{ user.id }}" class="form-check-input" type="checkbox" role="switch">
+                            </div>
+{#                            {% if  %}#}
 {#                            <span class="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Actif</span>#}
 {#                            {% else %}#}
 {#                            <span class="inline-block flex-shrink-0 rounded-full bg-red-400 px-2 py-0.5 text-xs font-medium text-green-800">Inactif</span>#}
 {#                            {% endif %}#}
                         </div>
-                        <p class="mt-1 truncate text-sm text-gray-500">Regional Paradigm Technician</p>
+                        <span class="mt-1 truncate text-sm text-gray-500">
+                            Vous disposez de structures
+                        </span>
                     </div>
                 </div>
                 <div>

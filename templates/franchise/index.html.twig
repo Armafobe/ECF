@@ -3,58 +3,63 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block content %}
-    <div class="mx-auto divide-y divide-gray-200 w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
-        <div class="px-4 py-5 text-center sm:px-6">
-            Vos permissions
-        </div>
-        <div class="px-4 py-5 sm:p-6">
-            <ul class="space-y-2">
-                {% for permission in permissions %}
-                <li class="text-slate-700">
-                   {{ permission }}
-                    <div class="inline form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="switch">
-                        <label for="switch" class="sr-only">Activer</label>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-
     <div class="mx-auto divide-y divide-gray-200 w-1/2 overflow-hidden rounded-lg my-4 bg-white shadow">
         <div class="px-4 py-5 text-center sm:px-6">
             Vos structures
         </div>
         <div class="px-4 py-5 sm:p-6">
-        <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {% for structure in structures %}
-            <li class="col-span-3 divide-y divide-gray-200 rounded-lg bg-white shadow">
-                <div class="flex items-center justify-between space-x-6 p-6">
-                    <div class="flex-1 truncate">
-                        <div class="flex items-center space-x-3">
-                            <h3 class="truncate text-sm font-medium text-gray-900">{{ structure.address }}</h3>
-{#                            {% if active %}#}
-{#                            <span class="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Actif</span>#}
-{#                            {% else %}#}
-{#                            <span class="inline-block flex-shrink-0 rounded-full bg-red-400 px-2 py-0.5 text-xs font-medium text-green-800">Inactif</span>#}
-{#                            {% endif %}#}
+            <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {% for structure in structures %}
+                    <li class="col-span-3 divide-y divide-gray-200 rounded-lg bg-white shadow">
+                        <div class="flex items-center justify-between space-x-6 p-6">
+                            <div class="flex-1 truncate">
+                                <div class="flex items-center space-x-3">
+                                    <div class="ml-1 form-check form-switch">
+                                        <label for="{{ structure.id }}" class="truncate text-sm font-medium text-amber-900">{{ structure.address }}</label>
+                                        <input id="{{ structure.id }}" class="form-check-input" type="checkbox" role="switch"
+                                        {% if user.roles == ['ROLE_USER'] %}
+                                                disabled
+                                        {% endif %}
+                                        >
+                                    </div>
+                                    {#                            {% if active %}#}
+                                    {#                            <span class="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Actif</span>#}
+                                    {#                            {% else %}#}
+                                    {#                            <span class="inline-block flex-shrink-0 rounded-full bg-red-400 px-2 py-0.5 text-xs font-medium text-green-800">Inactif</span>#}
+                                    {#                            {% endif %}#}
+                                </div>
+{#                                <p class="mt-1 truncate text-sm text-gray-500">Regional Paradigm Technician</p>#}
+                            </div>
                         </div>
-                        <p class="mt-1 truncate text-sm text-gray-500">Regional Paradigm Technician</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="-mt-px flex divide-x divide-gray-200">
-                        <div class="flex flex-1">
-                            <a href="{{ path('structure', {'name': franchise.name, 'id': structure.id}) }}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500">
-                                <span class="ml-3">Voir les détails</span>
-                            </a>
+                        <div>
+                            <div class="-mt-px flex divide-x divide-gray-200">
+
+                                <a href="{{ path('structure', {'name': franchise.name, 'id': structure.id}) }}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500">
+                                    <span class="ml-3">Voir les détails</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="mx-auto divide-y divide-gray-200 w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
+        <div class="px-4 py-3 text-center sm:px-6">
+            Vos permissions
+        </div>
+        <div class="px-4 py-5 sm:p-6 grid grid-cols-2 gap-x-2 max-rows-max">
+            {% for permission in permissions %}
+                <span class="col-start-1 justify-self-end">{{ permission }}</span>
+                <div class="col-start-2 form-check form-switch">
+                    <label for="switch" class="sr-only">Activer</label>
+                    <input class="form-check-input " type="checkbox" role="switch" id="switch"
+                    {% if user.roles == ['ROLE_USER'] %}
+                    disabled
+                    {% endif %}>
                 </div>
-            </li>
             {% endfor %}
-        </ul>
         </div>
     </div>
 {% endblock %}

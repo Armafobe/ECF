@@ -30,6 +30,7 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+    # mdp: T2eOzXknazrwWitLH88O
 
     public function getId(): ?int
     {
