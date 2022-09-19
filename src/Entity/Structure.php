@@ -32,6 +32,11 @@ class Structure implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT)]
     private ?string $address = null;
 
+    private array $permissions = [
+        "Vendre des boissons",
+        "Planning équipe"
+    ];
+
     #[ORM\ManyToOne(inversedBy: 'structures')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
@@ -114,6 +119,18 @@ class Structure implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPermissions(): ?array
+    {
+        return $this->permissions;
+    }
+
+    public function setPermissions(array $permissions): self
+    {
+        $this->permissions = $permissions;
 
         return $this;
     }

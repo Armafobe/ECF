@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    {{ form_start(registrationForm) }}
+    <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md space-y-8">
+            <input type="hidden" name="remember" value="true">
+            <div class="-space-y-px rounded-md shadow-sm">
+                <div>
+                    {{ form_label(registrationForm.email, 'Adresse mail', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Adresse mail', 'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
+                </div>
+                <div>
+                    {{ form_label(registrationForm.password, 'Mot de passe', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(registrationForm.password, {'attr': {'placeholder': 'Mot de passe', 'class': 'relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
+                </div>
+                <div>
+                    {{ form_label(registrationForm.address, 'Adresse', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(registrationForm.address, {'attr': {'placeholder': 'Adresse', 'class': 'relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
+                </div>
+                <div>
+                    {{ form_label(registrationForm.user, 'Appartenance', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(registrationForm.user, {'attr': {'placeholder': 'Appartenance', 'class': 'relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Créer le compte
+                </button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(registrationForm) }}
+{% endblock %}

@@ -21,14 +21,23 @@
             <div class="px-4 py-3 text-center sm:px-6">
                 Vos permissions
             </div>
-            <div class="px-4 py-5 sm:p-6 grid grid-cols-2 gap-x-2 max-rows-max">
-                {% for permission in permissions %}
-                    <span class="col-start-1 justify-self-end">{{ permission }}</span>
-                    <div class="col-start-2 form-check form-switch">
-                        <input class="form-check-input " type="checkbox" role="switch" id="switch">
-                        <label for="switch" class="sr-only">Activer</label>
+
+            {{ form_start(form) }}
+            <form action="#" method="get">
+                <div class="px-4 py-5 sm:p-6 grid grid-cols-1 mx-auto w-3/5 max-rows-max">
+{#                    <span class="col-start-1 justify-self-end" value="{{ permission.vars.label }}">{{ permission.vars.label }}</span>#}
+                    <div class="form-check form-switch">
+                        {{ form_label(form.boisson) }}
+                        {{ form_widget(form.boisson, {'attr': {'class': 'form-check-input'}}) }}
                     </div>
-                {% endfor %}
-            </div>
+
+                    <div class="form-check form-switch">
+                        {{ form_label(form.equipe) }}
+                        {{ form_widget(form.equipe, {'attr': {'class': 'form-check-input'}}) }}
+                    </div>
+                </div>
+            {{ form_widget(form.submit, {'label': 'Valider les modifications', 'attr': {'class': 'w-full border-top p-3'}}) }}
+            </form>
+            {{ form_end(form) }}
         </div>
 {% endblock %}

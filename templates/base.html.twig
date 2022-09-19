@@ -8,12 +8,12 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <link href="{{ asset('styles/app.css') }}" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     </head>
 
 
-    <body style="font-family: 'Inter', 'Roboto', 'sans-serif'">
+    <body class="bg-slate-800 text-slate-400">
         <header>
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 justify-center">
@@ -24,7 +24,7 @@
 {#                            </div>#}
                         <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                             <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                            <a href="/" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900">Accueil</a>
+                            <a href="/" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-slate-300">Accueil</a>
                             {% if app.user %}
                                 <a href="{{ path('deconnexion') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Déconnexion</a>
                             {% else %}
@@ -72,7 +72,7 @@
             {% endblock %}
         </main>
 
-        <footer class="bg-white w-full">
+        <footer class="w-full absolute bottom-0">
             <div class="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
                 <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
                     <div class="px-5 py-2">
