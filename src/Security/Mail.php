@@ -22,7 +22,7 @@ class Mail
                     'To' => [
                         [
                             'Email' => $to_email,
-                            'Name' => $to_name ? $to_name : $address
+                            'Name' => $to_name
                         ]
                     ],
                     'TemplateID' => 4211335,
@@ -37,6 +37,6 @@ class Mail
             ]
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
-        $response->success() && dd($response->getData());
+        $response->success() && var_dump($response->getData());
     }
 }

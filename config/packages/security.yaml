@@ -30,6 +30,7 @@ security:
             lazy: true
             provider: all_users
             form_login:
+                default_target_path: password_change
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true

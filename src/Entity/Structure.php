@@ -32,6 +32,9 @@ class Structure implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT)]
     private ?string $address = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $isVerified = false;
+
     private array $permissions = [
         "Vendre des boissons",
         "Planning équipe"
@@ -75,7 +78,7 @@ class Structure implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_SUBUSER';
 
         return array_unique($roles);
     }
@@ -131,6 +134,18 @@ class Structure implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPermissions(array $permissions): self
     {
         $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
