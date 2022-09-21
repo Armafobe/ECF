@@ -39,8 +39,6 @@ security:
                 target: home
             switch_user: true
 
-
-
                 # where to redirect after logout
                 # target: app_any_route
 

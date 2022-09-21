@@ -28,7 +28,10 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+
+            $mail = new Mail();
+            $mail->send($form->get('email')->getData(), $form->get('name')->getData(), 'Identifiants de connexion', $form->get('name')->getData(), $form->get('email')->getData(), $form->get('password')->getData());
+
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -39,8 +42,6 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $mail = new Mail();
-            $mail->send($user->getEmail(), $user->getName(), 'Identifiants de connexion', $user->getName(), $user->getEmail(), $user->getPassword());
 
             return $this->redirectToRoute('admin');
         }

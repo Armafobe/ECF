@@ -19,7 +19,9 @@ class PasswordChangeController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($user->isVerified()) {
+        if ($user->getRoles() == ['ROLE_ADMIN']) {
+            return $this->redirectToRoute('admin');
+        } elseif ($user->isVerified()) {
             if ($user->getRoles() == ['ROLE_USER']) {
                 return $this->redirectToRoute("compte", ['name' => $user->getName()]);
             } else {

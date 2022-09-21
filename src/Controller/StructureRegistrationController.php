@@ -24,7 +24,10 @@ class StructureRegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+
+            $mail = new Mail();
+            $mail->send($structure->getEmail(), $structure->getAddress(), 'Identifiants de connexion', $structure->getAddress(), $structure->getEmail(), $structure->getPassword());
+
             $structure->setPassword(
                 $userPasswordHasher->hashPassword(
                     $structure,
@@ -34,9 +37,6 @@ class StructureRegistrationController extends AbstractController
 
             $entityManager->persist($structure);
             $entityManager->flush();
-
-            $mail = new Mail();
-            $mail->send($structure->getEmail(), $structure->getAddress(), 'Identifiants de connexion', $structure->getAddress(), $structure->getEmail(), $structure->getPassword());
 
             return $this->redirectToRoute('admin');
         }
