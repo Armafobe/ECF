@@ -3,11 +3,11 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block content %}
-    <div class="mx-auto w-3/5 divide-y divide-gray-200 rounded-md bg-white">
+    <div class="mx-auto mt-4 w-10/12 md:w-3/5 xl:w-2/5 divide-y divide-gray-200 rounded-md bg-white">
         <div class="py-4 text-center">
             Vos structures
         </div>
-        <div class="mx-auto px-4 grid grid-cols-6 gap-x-10 auto-rows-max">
+        <div class="mx-auto px-4 grid grid-cols-3 lg:grid-cols-6 gap-x-10 auto-rows-max">
             {% for structure in structures %}
             <div class="col-span-3 my-4 divide-y divide-gray-200 rounded-lg bg-white shadow">
                 <div class="flex space-x-6 p-6">
@@ -41,21 +41,36 @@
         </div>
     </div>
 
-    <div class="mx-auto divide-y divide-gray-200 w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
+    <div class="mx-auto divide-y divide-gray-200 w-10/12 sm:w-3/5 lg:w-1/2 xl:w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
         <div class="px-4 py-3 text-center sm:px-6">
             Vos permissions
         </div>
-        <div class="px-4 py-5 sm:p-6 grid grid-cols-2 gap-x-2 max-rows-max">
-            {% for permission in permissions %}
-                <span class="col-start-1 justify-self-end">{{ permission }}</span>
-                <div class="col-start-2 form-check form-switch">
-                    <label for="switch" class="sr-only">Activer</label>
-                    <input class="form-check-input " type="checkbox" role="switch" id="switch"
-                    {% if user.roles == ['ROLE_USER'] %}
-                    disabled
-                    {% endif %}>
-                </div>
+        {{ form_start(form) }}
+        <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 max-rows-max">
+            {% for perm in form.permissions %}
+
+            <div class="col-start-1 justify-self-end form-check form-switch">
+                {{ form_widget(perm, {'attr': {'class': 'form-check-input'}}) }}
+            </div>
+            <span class="col-start-2 col-span-2 justify-self-start">{{ form_label(perm) }}</span>
             {% endfor %}
+{#                <span class="col-start-1 justify-self-end">{{ permission.name }}</span>#}
+{#                <div class="col-start-2 form-check form-switch">#}
+{#                    <label for="switch" class="sr-only">Activer</label>#}
+{#                    <input class="form-check-input " type="checkbox" role="switch" id="switch"#}
+{#                    {% if permission.isActive == true %}#}
+{#                        checked#}
+{#                    {% endif %}#}
+{#                    {% if user.roles != ['ROLE_ADMIN'] %}#}
+{#                        disabled#}
+{#                    {% endif %}>#}
+{#                </div>#}
+        </div>
+        <div class="text-center border-t">
+            <button type="submit" class="p-3 w-full hover:bg-green-600 hover:text-white">
+                Sauvegarder les modifications
+            </button>
         </div>
     </div>
+    {{ form_end(form) }}
 {% endblock %}

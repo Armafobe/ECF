@@ -20,19 +20,6 @@ class StructureController extends AbstractController
 
         $structure = $doctrine->getRepository(Structure::class)->findOneBy(array('id' => $id));
 
-        $form = $this->createForm(PermissionsFormType::class, (new \App\Entity\Structure())->getPermissions());
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            return $form->getData();
-        }
-
-        if ($this->getUser()->getRoles() == ['ROLE_ADMIN']) {
-            $permissions = (new \App\Entity\Structure())->getPermissions();
-        } else {
-            $permissions = $this->getUser()->getPermissions();
-        }
-
         if (!$franchise) {
             return $this->redirectToRoute('connexion');
         }
@@ -40,8 +27,6 @@ class StructureController extends AbstractController
         return $this->render('structure/index.html.twig', [
             'structure' => $structure,
             'franchise' => $franchise,
-            'permissions' => $permissions,
-            'form' => $form->createView()
         ]);
     }
 }

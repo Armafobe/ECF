@@ -1,25 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Changement mot de passe{% endblock %}
 
 {% block content %}
     <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-md space-y-8">
             {{ form_start(form) }}
-                <input type="hidden" name="remember" value="true">
                 <div class="-space-y-px rounded-md shadow-sm">
                     <div>
-                        {{ form_widget(form.password.first, {'placeholder': 'Nouveau mot de passe', 'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
+                        {{ form_widget(form.password.first, {'placeholder': 'Nouveau mot de passe', 'attr': {'class': 'relative block w-full appearance-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
                     </div>
                     <div>
-                        {{ form_widget(form.password.second, {'placeholder': 'Confirmez le nouveau mot de passe', 'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
+                        {{ form_widget(form.password.second, {'placeholder': 'Confirmez le nouveau mot de passe', 'attr': {'class': 'relative block w-full appearance-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
                     </div>
                 </div>
 
                 <input type="hidden" name="_token" value="{{ csrf_token('authenticate') }}">
 
                 <div>
-                    {{ form_widget(form.submit, {'attr': {'class': 'group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'}}) }}
+                    {{ form_widget(form.submit, {'attr': {'class': 'group relative flex w-full mt-4 justify-center rounded-md border border-transparent bg-teal-700 py-2 px-4 text-sm font-medium text-white hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'}}) }}
                 </div>
             {{ form_end(form) }}
         </div>

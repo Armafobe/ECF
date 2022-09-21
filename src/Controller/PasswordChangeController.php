@@ -34,8 +34,8 @@ class PasswordChangeController extends AbstractController
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les deux champs doivent être identiques',
                 'required' => true,
-                'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Répétez le mot de passe'],
+                'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' => 'Nouveau mot de passe']],
+                'second_options' => ['label' => 'Répétez le mot de passe', 'attr' => ['placeholder' => 'Confirmez le nouveau mot de passe']],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Sauvegarder le changement'

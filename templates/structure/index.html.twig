@@ -3,7 +3,7 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block content %}
-        <div class="mx-auto divide-y divide-gray-200 w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
+        <div class="mx-auto divide-y divide-gray-200 w-10/12 md:w-3/5 xl:w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
             <div class="px-4 py-3 text-center sm:px-6">
                 Votre structure
             </div>
@@ -17,27 +17,10 @@
                 <span class="text-sm text-gray-500">{{ structure.email }}</span>
             </div>
         </div>
-        <div class="mx-auto divide-y divide-gray-200 w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
+
+        <div class="mx-auto divide-y divide-gray-200 w-10/12 md:w-3/5 xl:w-1/4 overflow-hidden rounded-lg my-4 bg-white shadow">
             <div class="px-4 py-3 text-center sm:px-6">
                 Vos permissions
             </div>
-
-            {{ form_start(form) }}
-            <form action="#" method="get">
-                <div class="px-4 py-5 sm:p-6 grid grid-cols-1 mx-auto w-3/5 max-rows-max">
-{#                    <span class="col-start-1 justify-self-end" value="{{ permission.vars.label }}">{{ permission.vars.label }}</span>#}
-                    <div class="form-check form-switch">
-                        {{ form_label(form.boisson) }}
-                        {{ form_widget(form.boisson, {'attr': {'class': 'form-check-input'}}) }}
-                    </div>
-
-                    <div class="form-check form-switch">
-                        {{ form_label(form.equipe) }}
-                        {{ form_widget(form.equipe, {'attr': {'class': 'form-check-input'}}) }}
-                    </div>
-                </div>
-            {{ form_widget(form.submit, {'label': 'Valider les modifications', 'attr': {'class': 'w-full border-top p-3'}}) }}
-            </form>
-            {{ form_end(form) }}
         </div>
 {% endblock %}

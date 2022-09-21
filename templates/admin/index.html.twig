@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte{% endblock %}
+{% block title %}Administration{% endblock %}
 
 {% block content %}
     <div class="flex w-full items-center justify-around py-12 px-4 sm:px-6 lg:px-8">
-        <div class="w-3/4 grid grid-cols-6 gap-x-10 auto-rows-max">
+        <div class="w-10/12 grid md:grid-cols-6 xl:grid-cols-9 gap-x-10 auto-rows-max">
         {% for user in users %}
         <div class="col-span-3 my-4 divide-y divide-gray-200 rounded-lg bg-white shadow">
             <div class="flex space-x-6 p-6">
@@ -38,6 +38,6 @@
     </div>
 
     <div class="flex justify-center">
-        <a href="{{ path("register_user") }}" class="p-4 rounded-md bg-blue-800 text-white">Ajouter un partenaire</a>
+        <a href="{{ path("register_user") }}" class="p-4 rounded-md bg-teal-700 hover:bg-teal-600 text-white">Ajouter un partenaire</a>
     </div>
 {% endblock %}
