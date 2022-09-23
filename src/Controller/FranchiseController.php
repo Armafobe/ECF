@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Permissions;
 use App\Entity\User;
 use App\Form\PermissionsFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -19,13 +20,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FranchiseController extends AbstractController
 {
-    #[Route('/haltere-ego-{name}', name: 'compte')]
-    public function show(Request $request, ManagerRegistry $doctrine, $name, User $user): Response
+    #[Route('/haltere-ego/{name}', name: 'compte')]
+    public function show(Request $request, ManagerRegistry $doctrine, $name, User $user, EntityManagerInterface $entityManager): Response
     {
         $franchise = $doctrine->getRepository(User::class)->findOneBy(array('name' => $name));
         $getUser = $this->getUser();
         $structures = $user->getStructures();
-        $permissions = $doctrine->getRepository(Permissions::class)->findAll();
 
         $form = $this->createFormBuilder()
             ->add('permissions', EntityType::class, [
@@ -37,8 +37,18 @@ class FranchiseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->get('permissions')->getViewData()
-            ;
+            $data = $form->get('permissions')->getData();
+            
+            for ($i = 0; $i <= count($data)-1; $i++) {
+                $id = $data[$i];
+                $permission = $doctrine->getRepository(Permissions::class)->findOneBy(array('id' => $id));
+                $franchise->addPermission($permission);
+                $permission->addUser($franchise);
+                $entityManager->persist($franchise);
+                $entityManager->persist($permission);
+                $entityManager->flush();
+            }
+//            return $this->redirectToRoute('admin');
         }
 
         if ($getUser->getRoles() != ['ROLE_ADMIN'] && $name != $getUser->getName()) {
@@ -53,7 +63,6 @@ class FranchiseController extends AbstractController
             'structures' => $structures,
             'franchise' => $franchise,
             'user' => $getUser,
-            'permissions' => $permissions,
             'form' => $form->createView()
         ]);
     }
