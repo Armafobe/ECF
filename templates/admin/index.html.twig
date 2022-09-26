@@ -3,8 +3,28 @@
 {% block title %}Administration{% endblock %}
 
 {% block content %}
+    <div class="flex w-10/12 justify-center space-x-4 items-center mx-auto mt-4">
+        <div class="sidebar-search w-1/2">
+            <div class="input-group custom-search-form">
+                <input type="text" id="search" class="form-control" placeholder="Recherche...">
+            </div>
+            <!-- /input-group -->
+        </div>
+
+        <div class="flex justify-center">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input h-4 w-4 border rounded-sm cursor-pointer" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label inline-block text-gray-800" for="inlineCheckbox1">Actif</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input h-4 w-4 border rounded-sm cursor-pointer" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label inline-block text-gray-800" for="inlineCheckbox2">Non actif</label>
+            </div>
+        </div>
+    </div>
+    
     <div class="flex w-full items-center justify-around py-12 px-4 sm:px-6 lg:px-8">
-        <div class="w-10/12 grid md:grid-cols-6 xl:grid-cols-9 gap-x-10 auto-rows-max">
+        <div id="result" class="w-10/12 grid md:grid-cols-6 xl:grid-cols-9 gap-x-10 auto-rows-max">
         {% for user in users %}
         <div class="col-span-3 my-4 divide-y divide-gray-200 rounded-lg bg-white shadow">
             <div class="flex space-x-6 p-6">
@@ -40,4 +60,45 @@
     <div class="flex justify-center">
         <a href="{{ path("register_user") }}" class="p-4 rounded-md bg-teal-700 hover:bg-teal-600 text-white">Ajouter un partenaire</a>
     </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $('#search').keyup(function (){
+            const data = [];
+            data.push({
+                'value': $('#search').val(),
+            });
+            const jsonString = JSON.stringify({data: data});
+            $.ajax({
+                type: "POST",
+                url: "{{ path('admin') }}",
+                data: 'data='+ jsonString,
+                complete: function(html) {
+                    $('#result').replaceWith(
+                        $(html.responseText).find('#result')
+                    );
+                }
+            });
+        });
+
+        $('#check').keyup(function (){
+            const data = [];
+            data.push({
+                'value': $('#check').val(),
+            });
+            const jsonString = JSON.stringify({data: data});
+            $.ajax({
+                type: "POST",
+                url: "{{ path('admin') }}",
+                data: 'data='+ jsonString,
+                complete: function(html) {
+                    $('#res').replaceWith(
+                        $(html.responseText).find('#res')
+                    );
+                }
+            });
+        })
+
+    </script>
 {% endblock %}
