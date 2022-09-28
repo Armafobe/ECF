@@ -70,13 +70,13 @@ class StructureRepository extends ServiceEntityRepository implements PasswordUpg
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Structure
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findPermissions($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.user = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

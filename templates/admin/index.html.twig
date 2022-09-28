@@ -4,25 +4,32 @@
 
 {% block content %}
     <div class="flex w-10/12 justify-center space-x-4 items-center mx-auto mt-4">
-        <div class="sidebar-search w-1/2">
+        <div class="sidebar-search w-1/6">
             <div class="input-group custom-search-form">
                 <input type="text" id="search" class="form-control" placeholder="Recherche...">
             </div>
-            <!-- /input-group -->
         </div>
 
-        <div class="flex justify-center">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input h-4 w-4 border rounded-sm cursor-pointer" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label inline-block text-gray-800" for="inlineCheckbox1">Actif</label>
+        <span class="ml-2">Ou</span>
+
+        <fieldset class="flex space-x-4">
+            <div class="flex items-center">
+                <input id="active" type="radio" name="filter" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                <label for="active" class="ml-1 text-sm font-medium text-gray-700">Actif</label>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input h-4 w-4 border rounded-sm cursor-pointer" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label inline-block text-gray-800" for="inlineCheckbox2">Non actif</label>
+
+            <div class="flex items-center">
+                <input id="inactive" type="radio" name="filter" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                <label for="inactive" class="ml-1 text-sm font-medium text-gray-700">Inactif</label>
             </div>
-        </div>
+
+            <div class="flex items-center">
+                <input id="all" type="radio" name="filter" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                <label for="all" class="ml-1 text-sm font-medium text-gray-700">Tout</label>
+            </div>
+        </fieldset>
     </div>
-    
+
     <div class="flex w-full items-center justify-around py-12 px-4 sm:px-6 lg:px-8">
         <div id="result" class="w-10/12 grid md:grid-cols-6 xl:grid-cols-9 gap-x-10 auto-rows-max">
         {% for user in users %}
@@ -64,6 +71,60 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <script type="text/javascript">
+        $('#all').click(function (){
+            const data = [];
+            data.push({
+                'value': $('#all').val(),
+            });
+            const jsonString = JSON.stringify({data: data});
+            $.ajax({
+                type: "GET",
+                url: "{{ path('admin') }}",
+                data: 'data='+ jsonString,
+                complete: function(html) {
+                    $('#result').replaceWith(
+                        $(html.responseText).find('#result')
+                    );
+                }
+            });
+        });
+
+        $('#active').click(function (){
+            const data = [];
+            data.push({
+                'value': $('#active').val(),
+            });
+            const jsonString = JSON.stringify({data: data});
+            $.ajax({
+                type: "POST",
+                url: "{{ path('active') }}",
+                data: 'data='+ jsonString,
+                complete: function(html) {
+                    $('#result').replaceWith(
+                        $(html.responseText).find('#result')
+                    );
+                }
+            });
+        });
+
+        $('#inactive').click(function (){
+            const data = [];
+            data.push({
+                'value': $('#inactive').val(),
+            });
+            const jsonString = JSON.stringify({data: data});
+            $.ajax({
+                type: "POST",
+                url: "{{ path('inactive') }}",
+                data: 'data='+ jsonString,
+                complete: function(html) {
+                    $('#result').replaceWith(
+                        $(html.responseText).find('#result')
+                    );
+                }
+            });
+        });
+
         $('#search').keyup(function (){
             const data = [];
             data.push({
@@ -81,24 +142,5 @@
                 }
             });
         });
-
-        $('#check').keyup(function (){
-            const data = [];
-            data.push({
-                'value': $('#check').val(),
-            });
-            const jsonString = JSON.stringify({data: data});
-            $.ajax({
-                type: "POST",
-                url: "{{ path('admin') }}",
-                data: 'data='+ jsonString,
-                complete: function(html) {
-                    $('#res').replaceWith(
-                        $(html.responseText).find('#res')
-                    );
-                }
-            });
-        })
-
     </script>
 {% endblock %}

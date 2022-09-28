@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Structure;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -70,18 +71,37 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //            ->getResult()
 //        ;
 //    }
+    public function orderByName() {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.name')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findUser($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s.id')
+            ->andWhere('s.name = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPermissions($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.permissions', 'p')
+            ->andWhere('s.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findBySearch($result){
        $qb = $this->createQueryBuilder('b')
            ->where('b.name LIKE :search')
            ->setParameter('search', '%'.$result.'%');
        return $qb->getQuery()->getResult();
-    }
-
-    public function findByFilter($result){
-        $qb = $this->createQueryBuilder('b')
-            ->where('b.is_active == :check')
-            ->setParameter('check', '%'.$result.'%');
-        return $qb->getQuery()->getResult();
     }
 }

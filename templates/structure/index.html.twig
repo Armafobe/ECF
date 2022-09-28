@@ -22,5 +22,18 @@
             <div class="px-4 py-3 text-center sm:px-6">
                 Vos permissions
             </div>
+
+            {% if permissions is empty %}
+                <div class="text-center p-4"><span class="text-red-400">Aucune permission disponible pour cette structure</span></div>
+            {% else %}
+            <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 max-rows-max">
+            {% for permission in permissions %}
+                <div class="col-start-1 justify-self-end form-check form-switch">
+                    <input id="perm" class="form-check-input" type="checkbox">
+                </div>
+                <label for="perm" class="col-start-2 col-span-2 justify-self-start">{{ permission.name }}</label>
+            {% endfor %}
+            </div>
+            {% endif %}
         </div>
 {% endblock %}
