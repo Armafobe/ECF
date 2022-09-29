@@ -13,19 +13,12 @@
                 <div class="flex space-x-6 p-6">
                     <div class="flex-1 truncate">
                         <div class="flex items-center space-x-2">
-                            <div class="ml-1 form-check form-switch">
-                                <label for="{{ structure.id }}" class="truncate text-sm font-medium text-amber-900">{{ structure.address }}</label>
-                                <input id="{{ structure.id }}" class="form-check-input" type="checkbox" role="switch"
-                                {% if user.roles == ['ROLE_USER'] %}
-                                        disabled
-                                {% endif %}
-                                >
-                            </div>
-                            {#                            {% if active %}#}
-                            {#                            <span class="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Actif</span>#}
-                            {#                            {% else %}#}
-                            {#                            <span class="inline-block flex-shrink-0 rounded-full bg-red-400 px-2 py-0.5 text-xs font-medium text-green-800">Inactif</span>#}
-                            {#                            {% endif %}#}
+                            <span for="{{ structure.id }}" class="truncate text-sm font-medium text-amber-900">{{ structure.address }}</span>
+                            {% if structure.isActive %}
+                                <span class="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Actif</span>
+                            {% else %}
+                                <span class="inline-block flex-shrink-0 rounded-full bg-red-400 px-2 py-0.5 text-xs font-medium text-green-800">Inactif</span>
+                            {% endif %}
                         </div>
 {#                                <p class="mt-1 truncate text-sm text-gray-500">Regional Paradigm Technician</p>#}
                         </div>
@@ -45,37 +38,55 @@
         <div class="px-4 py-3 text-center sm:px-6">
             Vos permissions
         </div>
-        {{ form_start(form) }}
-        <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 max-rows-max">
-            {% for perm in form.permissions %}
-            <div class="col-start-1 justify-self-end form-check form-switch">
-                {% if user_permissions.permissions_id is defined %}
-                {{ form_widget(perm, {'attr': {'class': 'form-check-input'}}) }}
+        {{ form_start(permissions_form) }}
+        <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 items-center max-rows-max">
+            {% for perm in permissions_form.permissions %}
+            <div class="col-start-1 justify-self-end self-center">
+                {% if user.roles is same as ['ROLE_ADMIN'] %}
+                    {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800'}}) }}
                 {% else %}
-                {{ form_widget(perm, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800 disabled:text-green-800/70', 'disabled': 'disabled'}}) }}
                 {% endif %}
             </div>
-            <span class="col-start-2 col-span-2 justify-self-start">{{ form_label(perm) }}</span>
+            <span class="col-start-2 col-span-2 self-end">{{ form_label(perm) }}</span>
             {% endfor %}
-{#              <span class="col-start-1 justify-self-end">{{ permission.name }}</span>}#}
-{#                <div class="col-start-2 form-check form-switch">#}
-{#                    <label for="switch" class="sr-only">Activer</label>#}
-{#                    <input class="form-check-input " type="checkbox" role="switch" id="switch"#}
-{#                    {% if permission.isActive == true %}#}
-{#                        checked#}
-{#                    {% endif %}#}
-{#                    {% if user.roles != ['ROLE_ADMIN'] %}#}
-{#                        disabled#}
-{#                    {% endif %}>#}
-{#                </div>#}
         </div>
-        <div class="text-center border-t">
-            <button type="submit" class="p-3 w-full hover:bg-green-600 hover:text-white">
-                Sauvegarder les modifications
-            </button>
-        </div>
+        {% if user.roles is same as ['ROLE_ADMIN'] %}
+            <div class="text-center border-t">
+                <button type="submit" class="p-3 w-full hover:bg-green-600 hover:text-white">
+                    Sauvegarder les modifications
+                </button>
+            </div>
+        {% endif %}
     </div>
-    {{ form_end(form) }}
+    {{ form_end(permissions_form) }}
+
+    <div class="mx-auto divide-y divide-border-200 w-10/12 sm:w-3/5 lg:w-1/2 xl:w-1/4 text-center overflow-hidden rounded-lg my-4 bg-white shadow">
+        {% if franchise.isIsActive == true %}
+            <div class="px-4 py-3 text-center sm:px-6">
+                Votre franchise est <span class="text-green-700 font-bold">active</span>
+            </div>
+            {% if user.roles is same as ['ROLE_ADMIN'] %}
+                {{ form_start(activate_form, {'attr': {'role': 'form', 'onsubmit': 'return confirm("Êtes-vous sûr de vouloir effectuer cette modification ?")'}}) }}
+                    <div id="true" class="text-center">
+                        {{ form_widget(activate_form.activated, {'label': 'Désactiver la franchise', 'attr': {'class': 'p-3 w-full hover:bg-red-600 hover:text-white'}}) }}
+                    </div>
+                {{ form_end(activate_form) }}
+            {% endif %}
+        {% else %}
+            <div class="px-4 py-3 text-center sm:px-6">
+                Votre franchise est <span class="text-red-700 font-bold">inactive</span>
+            </div>
+            {% if user.roles is same as ['ROLE_ADMIN'] %}
+                {{ form_start(activate_form, {'attr': {'role': 'form', 'onsubmit': 'return confirm("Êtes-vous sûr de vouloir effectuer cette modification ?")'}}) }}
+                    <div id="false" class="text-center">
+                        {{ form_widget(activate_form.activated, {'label': 'Activer la franchise', 'attr': {'class': 'p-3 w-full hover:bg-green-600 hover:text-white'}}) }}
+                    </div>
+                {{ form_end(activate_form) }}
+            {% endif %}
+        {% endif %}
+
+    </div>
 {% endblock %}
 
 

@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Permissions;
 use App\Entity\Structure;
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'admin')]
-    public function show(Request $request, ManagerRegistry $doctrine): Response
+    public function show(Request $request, ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
     {
         if ($_POST) {
             $result = json_decode($request->request->get('data'), true);

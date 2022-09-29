@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StructureController extends AbstractController
 {
-    #[Route('/haltère-ego/{name}/{id}', name: 'structure', methods: ['GET'])]
+    #[Route('/haltère-égo/{name}/{id}', name: 'structure', methods: ['GET'])]
     public function show(ManagerRegistry $doctrine, $name, $id, Request $request): Response
     {
         $franchise = $doctrine->getRepository(User::class)->findOneBy(array('name' => $name));

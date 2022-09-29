@@ -45,8 +45,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Permissions::class, inversedBy: 'users')]
     private Collection $permissions;
 
-    #[ORM\Column]
-    private ?bool $isActive = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $isActive = true;
 
     public function __construct()
     {
