@@ -23,17 +23,35 @@
                 Vos permissions
             </div>
 
-            {% if permissions is empty %}
+            {% if permission is empty %}
                 <div class="text-center p-4"><span class="text-red-400">Aucune permission disponible pour cette structure</span></div>
+                {{ form_start(form) }}
+                {% for perm in form.permissions %}
+                {{ form_widget(perm, {'attr': {'class': 'hidden'}}) }}
+                {% endfor %}
+                {{ form_end(form) }}
             {% else %}
-            <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 max-rows-max">
-            {% for permission in permissions %}
-                <div class="col-start-1 justify-self-end form-check form-switch">
-                    <input id="perm" class="form-check-input" type="checkbox">
-                </div>
-                <label for="perm" class="col-start-2 col-span-2 justify-self-start">{{ permission.name }}</label>
-            {% endfor %}
+            {{ form_start(form) }}
+            <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 items-center max-rows-max">
+                {% for perm in form.permissions %}
+                    <div class="col-start-1 justify-self-end self-center">
+                        {% if user.roles is same as ['ROLE_ADMIN'] %}
+                            {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800'}}) }}
+                        {% else %}
+                            {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800 disabled:text-green-800/70', 'disabled': 'disabled'}}) }}
+                        {% endif %}
+                    </div>
+                    <span class="col-start-2 col-span-2 self-end">{{ form_label(perm) }}</span>
+                {% endfor %}
             </div>
+            {% if user.roles is same as ['ROLE_ADMIN'] %}
+                <div class="text-center border-t">
+                    <button type="submit" class="p-3 w-full hover:bg-green-600 hover:text-white">
+                        Sauvegarder les modifications
+                    </button>
+                </div>
             {% endif %}
-        </div>
+            {% endif %}
+            </div>
+             {{ form_end(form) }}
 {% endblock %}

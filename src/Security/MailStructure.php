@@ -5,9 +5,9 @@ namespace App\Security;
 use Mailjet\Client;
 use Mailjet\Resources;
 
-class Mail
+class MailStructure
 {
-    public function send($to_email, $to_name, $subject, $address, $email, $password): void
+    public function send($to_email, $to_name, $subject): void
     {
         $mj = new Client('0045c4a14e8928459b09c927ef4ebc6d', '2522cf3a5072dfc0ba5f8239aea53df2',true,['version' => 'v3.1']);
         $body = [
@@ -23,14 +23,9 @@ class Mail
                             'Name' => $to_name
                         ]
                     ],
-                    'TemplateID' => 4211335,
+                    'TemplateID' => 4247328,
                     'TemplateLanguage' => true,
                     'Subject' => $subject,
-                    'Variables' => [
-                        "address" => $address,
-                        "email" => $email,
-                        "password" => $password
-                    ]
                 ]
             ]
         ];
@@ -38,7 +33,7 @@ class Mail
         $response->success() && var_dump($response->getData());
     }
 
-    public function sendPermissions($to_email, $to_name, $subject): void
+    public function toFranchise($to_email, $to_name, $subject, $address): void
     {
         $mj = new Client('0045c4a14e8928459b09c927ef4ebc6d', '2522cf3a5072dfc0ba5f8239aea53df2',true,['version' => 'v3.1']);
         $body = [
@@ -54,9 +49,12 @@ class Mail
                             'Name' => $to_name
                         ]
                     ],
-                    'TemplateID' => 4247600,
+                    'TemplateID' => 4247814,
                     'TemplateLanguage' => true,
                     'Subject' => $subject,
+                    'Variables' => [
+                        'address' => $address
+                    ]
                 ]
             ]
         ];

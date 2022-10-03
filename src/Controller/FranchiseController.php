@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Permissions;
 use App\Entity\User;
+use App\Security\Mail;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -41,7 +42,6 @@ class FranchiseController extends AbstractController
             $entityManager->flush();
         }
 
-
         $permissions_form = $this->createFormBuilder()
             ->add('permissions', EntityType::class, [
                     'class' => Permissions::class,
@@ -53,6 +53,9 @@ class FranchiseController extends AbstractController
         $permissions_form->handleRequest($request);
 
         if ($permissions_form->isSubmitted() && $permissions_form->isValid()) {
+            $mail = new Mail();
+            $mail->sendPermissions($franchise->getEmail(), $franchise->getName(), 'Nouvelles permissions');
+
             foreach ($permissions_form->getData()['permissions'] as $permission_id) {
                 $permission = $entityManager->getRepository(Permissions::class)->find($permission_id);
                 $franchise->addPermission($permission);
