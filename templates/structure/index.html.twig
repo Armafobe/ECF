@@ -26,12 +26,12 @@
             {% if permission is empty %}
                 <div class="text-center p-4"><span class="text-red-400">Aucune permission disponible pour cette structure</span></div>
                 {{ form_start(form) }}
-                {% for perm in form.permissions %}
-                {{ form_widget(perm, {'attr': {'class': 'hidden'}}) }}
-                {% endfor %}
+                    {% for perm in form.permissions %}
+                        {{ form_widget(perm, {'attr': {'class': 'hidden'}}) }}
+                    {% endfor %}
                 {{ form_end(form) }}
             {% else %}
-            {{ form_start(form) }}
+            {{ form_start(form, {'attr': {'role': 'form', 'onsubmit': 'return confirm("Êtes-vous sûr de vouloir effectuer cette modification ?")'}}) }}
             <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 items-center max-rows-max">
                 {% for perm in form.permissions %}
                     <div class="col-start-1 justify-self-end self-center">

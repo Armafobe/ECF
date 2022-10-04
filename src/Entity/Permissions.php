@@ -18,9 +18,6 @@ class Permissions
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?bool $isActive = null;
-
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'permissions')]
     private Collection $users;
 
@@ -51,18 +48,6 @@ class Permissions
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function isIsActive(): ?bool
-    {
-        return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): self
-    {
-        $this->isActive = $isActive;
 
         return $this;
     }

@@ -38,7 +38,7 @@
         <div class="px-4 py-3 text-center sm:px-6">
             Vos permissions
         </div>
-        {{ form_start(permissions_form) }}
+        {{ form_start(permissions_form, {'attr': {'role': 'form', 'onsubmit': 'return confirm("Êtes-vous sûr de vouloir effectuer cette modification ?")'}}) }}
         <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 items-center max-rows-max">
             {% for perm in permissions_form.permissions %}
             <div class="col-start-1 justify-self-end self-center">

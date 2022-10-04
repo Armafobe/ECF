@@ -8,7 +8,9 @@ use App\Entity\User;
 use App\Form\PermissionsFormType;
 use App\Security\Mail;
 use App\Security\MailStructure;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,17 +29,16 @@ class StructureController extends AbstractController
 
         $structure = $doctrine->getRepository(Structure::class)->findOneBy(array('id' => $id));
 
-        $permissions = $doctrine->getRepository(Permissions::class)->findAll();
-
-        $id = $doctrine->getRepository(User::class)->findUser($name);
-        $user = $doctrine->getRepository(User::class)->findPermissions($id);
+        $permission = $doctrine->getRepository(Permissions::class)->findAll();
 
         $form = $this->createFormBuilder()
             ->add('permissions', EntityType::class, [
                 'class' => Permissions::class,
+                'choices' => $franchise->getPermissions(),
+                'label' => false,
                 'expanded' => true,
                 'multiple' => true,
-                'data' => $user[0]->getPermissions()
+                'data' => $structure->getPermissions()
             ])
             ->getForm();
         $form->handleRequest($request);
@@ -62,6 +63,7 @@ class StructureController extends AbstractController
             $user = $doctrine->getRepository(User::class)->findPermissions($id);
             if (isset($user[0])) {
                 $permission = $user[0]->getPermissions();
+//                $user[0]->getPermissions();
 //                dd($permission);
             } else {
                 $permission = '';
