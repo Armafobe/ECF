@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Structure;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
 use App\Security\MailStructure;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -48,6 +47,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/user.html.twig', [
             'registrationForm' => $form->createView(),
+            'user' => $this->getUser()
         ]);
     }
 }

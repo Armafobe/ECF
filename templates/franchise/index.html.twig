@@ -17,11 +17,10 @@
                             {% if structure.isActive %}
                                 <span class="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Actif</span>
                             {% else %}
-                                <span class="inline-block flex-shrink-0 rounded-full bg-red-400 px-2 py-0.5 text-xs font-medium text-green-800">Inactif</span>
+                                <span class="inline-block flex-shrink-0 rounded-full bg-red-400 px-2 py-0.5 text-xs font-medium text-red-800">Inactif</span>
                             {% endif %}
                         </div>
-{#                                <p class="mt-1 truncate text-sm text-gray-500">Regional Paradigm Technician</p>#}
-                        </div>
+                    </div>
                 </div>
 
                     <div class="flex justify-center w-full">
@@ -38,28 +37,38 @@
         <div class="px-4 py-3 text-center sm:px-6">
             Vos permissions
         </div>
-        {{ form_start(permissions_form, {'attr': {'role': 'form', 'onsubmit': 'return confirm("Êtes-vous sûr de vouloir effectuer cette modification ?")'}}) }}
-        <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 items-center max-rows-max">
-            {% for perm in permissions_form.permissions %}
-            <div class="col-start-1 justify-self-end self-center">
-                {% if user.roles is same as ['ROLE_ADMIN'] %}
-                    {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800'}}) }}
-                {% else %}
-                    {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800 disabled:text-green-800/70', 'disabled': 'disabled'}}) }}
-                {% endif %}
+
+            {% if permission is empty or franchise.isIsActive == false %}
+                <div class="text-center p-4"><span class="text-red-400">Aucune permission disponible pour cette structure</span></div>
+                {{ form_start(permissions_form) }}
+                    {% for perm in permissions_form.permissions %}
+                        {{ form_widget(perm, {'attr': {'class': 'hidden'}}) }}
+                    {% endfor %}
+                {{ form_end(permissions_form) }}
+            {% else %}
+            {{ form_start(permissions_form, {'attr': {'role': 'form', 'onsubmit': 'return confirm("Êtes-vous sûr de vouloir effectuer cette modification ?")'}}) }}
+            <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 items-center max-rows-max">
+                {% for perm in permissions_form.permissions %}
+                <div class="col-start-1 justify-self-end self-center">
+                    {% if user.roles is same as ['ROLE_ADMIN'] %}
+                        {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800'}}) }}
+                    {% else %}
+                        {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800 disabled:text-green-800/70', 'disabled': 'disabled'}}) }}
+                    {% endif %}
+                </div>
+                <span class="col-start-2 col-span-2 self-end">{{ form_label(perm) }}</span>
+                {% endfor %}
             </div>
-            <span class="col-start-2 col-span-2 self-end">{{ form_label(perm) }}</span>
-            {% endfor %}
-        </div>
-        {% if user.roles is same as ['ROLE_ADMIN'] %}
-            <div class="text-center border-t">
-                <button type="submit" class="p-3 w-full hover:bg-green-600 hover:text-white">
-                    Sauvegarder les modifications
-                </button>
-            </div>
-        {% endif %}
-    </div>
+            {% if user.roles is same as ['ROLE_ADMIN'] %}
+                <div class="text-center border-t">
+                    <button type="submit" class="p-3 w-full hover:bg-green-600 hover:text-white">
+                        Sauvegarder les modifications
+                    </button>
+                </div>
+            {% endif %}
     {{ form_end(permissions_form) }}
+    {% endif %}
+    </div>
 
     <div class="mx-auto divide-y divide-border-200 w-10/12 sm:w-3/5 lg:w-1/2 xl:w-1/4 text-center overflow-hidden rounded-lg my-4 bg-white shadow">
         {% if franchise.isIsActive == true %}

@@ -76,6 +76,7 @@ class FranchiseController extends AbstractController
             'structures' => $structures,
             'franchise' => $franchise,
             'user' => $getUser,
+            'permission' => $userPerm,
             'permissions_form' => $permissions_form->createView(),
             'activate_form' => $activate_form->createView()
         ]);

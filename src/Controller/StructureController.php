@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +30,16 @@ class StructureController extends AbstractController
 
         $structure = $doctrine->getRepository(Structure::class)->findOneBy(array('id' => $id));
 
-        $permission = $doctrine->getRepository(Permissions::class)->findAll();
+        $activate_form = $this->createFormBuilder()
+            ->add('activated', SubmitType::class)
+            ->getForm();
+        $activate_form->handleRequest($request);
+
+        if ($activate_form->isSubmitted() && $activate_form->isValid()) {
+            $structure->setIsActive(!$structure->isIsActive());
+            $entityManager->persist($structure);
+            $entityManager->flush();
+        }
 
         $form = $this->createFormBuilder()
             ->add('permissions', EntityType::class, [
@@ -63,23 +73,19 @@ class StructureController extends AbstractController
             $user = $doctrine->getRepository(User::class)->findPermissions($id);
             if (isset($user[0])) {
                 $permission = $user[0]->getPermissions();
-//                $user[0]->getPermissions();
-//                dd($permission);
             } else {
                 $permission = '';
             }
         } else {
-            $permission = $this->getUser()->getPermissions();
+            $permission = $getUser->getPermissions();
         }
 
-//        if (!$franchise) {
-//            return $this->redirectToRoute('connexion');
-//        }
         return $this->render('structure/index.html.twig', [
             'structure' => $structure,
             'franchise' => $franchise,
             'permission' => $permission,
             'user' => $getUser,
+            'activate_form' => $activate_form->createView(),
             'form' => $form->createView()
         ]);
     }

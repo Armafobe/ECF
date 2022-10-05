@@ -45,6 +45,7 @@ class StructureRegistrationController extends AbstractController
 
         return $this->render('registration/structure.html.twig', [
             'registrationForm' => $form->createView(),
+            'user' => $this->getUser()
         ]);
     }
 }

@@ -12,6 +12,17 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(): Response
     {
-        return $this->render('home/index.html.twig');
+        $user = $this->getUser();
+
+        switch ($user) {
+            case $user->getRoles() == ['ROLE_ADMIN']:
+                return $this->redirectToRoute('admin');
+            case $user->getRoles() == ['ROLE_USER']:
+                return $this->redirectToRoute('compte', ['name' => $user->getName()]);
+            case $user->getRoles() == ['ROLE_SUBUSER']:
+                return $this->redirectToRoute('structure', ['name' => $user->getUser()->getName(), 'id' => $user->getId()]);
+            default:
+                return $this->redirectToRoute('connexion');
+        }
     }
 }
