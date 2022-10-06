@@ -38,7 +38,7 @@
             Vos permissions
         </div>
 
-            {% if permission is empty or franchise.isIsActive == false %}
+            {% if franchise.isIsActive == false %}
                 <div class="text-center p-4"><span class="text-red-400">Aucune permission disponible pour cette structure</span></div>
                 {{ form_start(permissions_form) }}
                     {% for perm in permissions_form.permissions %}
@@ -47,7 +47,7 @@
                 {{ form_end(permissions_form) }}
             {% else %}
             {{ form_start(permissions_form, {'attr': {'role': 'form', 'onsubmit': 'return confirm("Êtes-vous sûr de vouloir effectuer cette modification ?")'}}) }}
-            <div class="px-4 py-5 sm:p-6 grid grid-cols-3 gap-x-2 items-center max-rows-max">
+            <div class="px-4 py-5 sm:p-6 grid grid-cols-4 md:grid-cols-3 gap-x-2 items-center max-rows-max">
                 {% for perm in permissions_form.permissions %}
                 <div class="col-start-1 justify-self-end self-center">
                     {% if user.roles is same as ['ROLE_ADMIN'] %}
@@ -56,7 +56,7 @@
                         {{ form_widget(perm, {'attr': {'class': 'rounded-full bg-green-100 text-green-800 disabled:text-green-800/70', 'disabled': 'disabled'}}) }}
                     {% endif %}
                 </div>
-                <span class="col-start-2 col-span-2 self-end">{{ form_label(perm) }}</span>
+                <span class="col-start-2 col-span-3 md:col-span-2 self-end">{{ form_label(perm) }}</span>
                 {% endfor %}
             </div>
             {% if user.roles is same as ['ROLE_ADMIN'] %}

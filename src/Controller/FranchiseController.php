@@ -40,6 +40,14 @@ class FranchiseController extends AbstractController
             $franchise->setIsActive(!$franchise->isIsActive());
             $entityManager->persist($franchise);
             $entityManager->flush();
+            if (!$franchise->isIsActive()) {
+                foreach ($structures as $structure) {
+                    $structure->setIsActive(false);
+                    $entityManager->persist($structure);
+                    $entityManager->flush();
+                }
+            }
+            return $this->redirect($request->getUri());
         }
 
         $permissions_form = $this->createFormBuilder()
@@ -62,6 +70,7 @@ class FranchiseController extends AbstractController
             };
             $entityManager->persist($franchise);
             $entityManager->flush();
+            return $this->redirect($request->getUri());
         }
 
         if ($getUser->getRoles() != ['ROLE_ADMIN'] && $name != $getUser->getName()) {

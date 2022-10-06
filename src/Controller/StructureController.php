@@ -39,6 +39,7 @@ class StructureController extends AbstractController
             $structure->setIsActive(!$structure->isIsActive());
             $entityManager->persist($structure);
             $entityManager->flush();
+            return $this->redirect($request->getUri());
         }
 
         $form = $this->createFormBuilder()
@@ -66,6 +67,7 @@ class StructureController extends AbstractController
             };
             $entityManager->persist($structure);
             $entityManager->flush();
+            return $this->redirect($request->getUri());
         }
 
         if ($this->getUser()->getRoles() == ['ROLE_ADMIN']) {

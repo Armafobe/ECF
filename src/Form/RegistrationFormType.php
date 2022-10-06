@@ -19,8 +19,6 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('name', TextType::class)
             ->add('password', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -28,9 +26,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Entrez un mot de passe',
                     ]),
                     new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit faire au moins 6 caractères',
-                        // max length allowed by Symfony for security reasons
+                        'min' => 1,
                         'max' => 4096,
                     ]),
                 ],

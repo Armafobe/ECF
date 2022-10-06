@@ -42,7 +42,7 @@ class Structure implements UserInterface, PasswordAuthenticatedUserInterface
     private ?User $user = null;
 
     #[ORM\Column(type: 'boolean')]
-    private ?bool $isActive = true;
+    private ?bool $isActive = false;
 
     #[ORM\ManyToMany(targetEntity: Permissions::class, inversedBy: 'structures')]
     private Collection $permissions;
