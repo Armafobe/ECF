@@ -63,7 +63,8 @@ class PasswordChangeController extends AbstractController
         }
 
         return $this->render('password_change/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 }
