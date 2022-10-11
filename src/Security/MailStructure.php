@@ -9,7 +9,7 @@ class MailStructure
 {
     public function send($to_email, $to_name, $subject): void
     {
-        $mj = new Client('0045c4a14e8928459b09c927ef4ebc6d', '2522cf3a5072dfc0ba5f8239aea53df2',true,['version' => 'v3.1']);
+        $mj = new Client(getenv('MAIL_API_KEY'), getenv('MAIL_API_SECRET'),true,['version' => 'v3.1']);
         $body = [
             'Messages' => [
                 [
@@ -35,7 +35,7 @@ class MailStructure
 
     public function toFranchise($to_email, $to_name, $subject, $address): void
     {
-        $mj = new Client('0045c4a14e8928459b09c927ef4ebc6d', '2522cf3a5072dfc0ba5f8239aea53df2',true,['version' => 'v3.1']);
+        $mj = new Client(getenv('MAIL_API_KEY'), getenv('MAIL_API_SECRET'),true,['version' => 'v3.1']);
         $body = [
             'Messages' => [
                 [
