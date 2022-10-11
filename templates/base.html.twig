@@ -21,11 +21,11 @@
                         <div class="sm:flex sm:space-x-8 space-y-1 md:space-y-0 mt-4 space-x-4">
                             {% if app.user %}
                                 {% if user.roles == ['ROLE_ADMIN'] %}
-                            <a href="{{ path('admin') }}" class="inline-flex items-center pl-3 text-sm font-medium text-gray-500 hover:text-gray-700">Dashboard</a>
-                            <a href="{{ path('register_user') }}" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700">Ajouter un partenaire</a>
-                            <a href="{{ path('register_structure') }}" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700">Ajouter une structure</a>
+                            <a href="{{ path('admin') }}" class="inline-flex items-center pl-3 text-sm font-medium text-gray-700 hover:text-gray-500">Dashboard</a>
+                            <a href="{{ path('register_user') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-500">Ajouter un partenaire</a>
+                            <a href="{{ path('register_structure') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-500">Ajouter une structure</a>
                                 {% endif %}
-                                <a href="{{ path('deconnexion') }}" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700">Déconnexion</a>
+                                <a href="{{ path('deconnexion') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-500">Déconnexion</a>
                             {% endif %}
                         </div>
                     </div>
@@ -40,7 +40,7 @@
 
         <footer class="w-full bottom-0">
             <div class="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-                <p class="mt-8 text-center text-base text-gray-600">&copy; 2022 Haltère Égo. Tous droits réservés.</p>
+                <p class="mt-8 text-center text-base text-gray-700">&copy; 2022 Haltère Égo. Tous droits réservés.</p>
             </div>
         </footer>
 
