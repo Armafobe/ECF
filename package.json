@@ -18,8 +18,7 @@
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "build": "npm run build",
-        "install": "npm install",
+        "start": "node public/",
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch"
