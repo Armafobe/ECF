@@ -1,16 +1,9 @@
 <?php
 
-namespace App;
+use App\Kernel;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
-class index extends AbstractController
-{
-    #[Route('/index', name: 'app_index')]
-    public function index(): Response
-    {
-        return $this->redirectToRoute('home');
-    }
-}
+return function (array $context) {
+    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+};
