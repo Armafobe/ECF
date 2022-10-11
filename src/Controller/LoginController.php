@@ -11,7 +11,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/connexion', name: 'app_login')]
+    #[Route('haltere-ego.herokuapp.com/connexion', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils, #[CurrentUser] ?User $user): Response
     {
         $user = $this->getUser();
