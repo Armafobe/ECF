@@ -30,7 +30,6 @@ class MailStructure
             ]
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
-        $response->success() && var_dump($response->getData());
     }
 
     public function toFranchise($to_email, $to_name, $subject, $address): void
@@ -59,6 +58,5 @@ class MailStructure
             ]
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
-        $response->success() && var_dump($response->getData());
     }
 }

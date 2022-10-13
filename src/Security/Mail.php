@@ -35,7 +35,6 @@ class Mail
             ]
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
-        $response->success() && var_dump($response->getData());
     }
 
     public function sendPermissions($to_email, $to_name, $subject): void
@@ -61,6 +60,5 @@ class Mail
             ]
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
-        $response->success() && var_dump($response->getData());
     }
 }
