@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Security\Mail;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,6 +31,12 @@ class FranchiseController extends AbstractController
         $structures = $user->getStructures();
         $permission = $doctrine->getRepository(Permissions::class)->findAll();
         $userPerm = $franchise->getPermissions();
+
+        if ($getUser->getRoles() != ['ROLE_ADMIN']) {
+            if (!$getUser->isVerified()) {
+                return $this->redirectToRoute('password_change');
+            }
+        }
 
         $activate_form = $this->createFormBuilder()
             ->add('activated', SubmitType::class)

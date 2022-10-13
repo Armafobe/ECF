@@ -30,6 +30,12 @@ class StructureController extends AbstractController
 
         $structure = $doctrine->getRepository(Structure::class)->findOneBy(array('id' => $id));
 
+        if ($getUser->getRoles() != ['ROLE_ADMIN']) {
+            if (!$getUser->isVerified()) {
+                return $this->redirectToRoute('password_change');
+            }
+        }
+
         $activate_form = $this->createFormBuilder()
             ->add('activated', SubmitType::class)
             ->getForm();
