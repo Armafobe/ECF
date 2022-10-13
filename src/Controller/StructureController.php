@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StructureController extends AbstractController
 {
-    #[Route('/{name}/{id}', name: 'structure')]
+    #[Route('/haltère-égo/{name}/{id}', name: 'structure')]
     public function show(ManagerRegistry $doctrine, $name, $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $getUser = $this->getUser();
