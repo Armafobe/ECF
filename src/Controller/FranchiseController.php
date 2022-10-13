@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FranchiseController extends AbstractController
 {
-    #[Route('/haltère-égo/{name}', name: 'compte')]
+    #[Route('/{name}', name: 'compte')]
     public function show(Request $request, ManagerRegistry $doctrine, $name, User $user, EntityManagerInterface $entityManager): Response
     {
         $franchise = $doctrine->getRepository(User::class)->findOneBy(array('name' => $name));
