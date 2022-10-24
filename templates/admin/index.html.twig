@@ -65,9 +65,15 @@
 
     <script type="text/javascript">
         $('#all').click(function (){
+            const data = [];
+            data.push({
+                'value': $('#all').val(),
+            });
+            const jsonString = JSON.stringify({data: data});
             $.ajax({
                 type: "GET",
                 url: "{{ path('admin') }}",
+                data: 'data='+ jsonString,
                 complete: function(html) {
                     $('#result').replaceWith(
                         $(html.responseText).find('#result')
@@ -77,9 +83,15 @@
         });
 
         $('#active').click(function (){
+            const data = [];
+            data.push({
+                'value': $('#active').val(),
+            });
+            const jsonString = JSON.stringify({data: data});
             $.ajax({
                 type: "POST",
                 url: "{{ path('active') }}",
+                data: 'data='+ jsonString,
                 complete: function(html) {
                     $('#result').replaceWith(
                         $(html.responseText).find('#result')
@@ -89,6 +101,11 @@
         });
 
         $('#inactive').click(function (){
+            const data = [];
+            data.push({
+                'value': $('#inactive').val(),
+            });
+            const jsonString = JSON.stringify({data: data});
             $.ajax({
                 type: "POST",
                 url: "{{ path('inactive') }}",
