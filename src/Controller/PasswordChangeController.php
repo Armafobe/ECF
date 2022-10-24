@@ -19,6 +19,10 @@ class PasswordChangeController extends AbstractController
     {
         $user = $this->getUser();
 
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if ($user->getRoles() == ['ROLE_ADMIN']) {
             return $this->redirectToRoute('admin');
         } elseif ($user->isVerified()) {
