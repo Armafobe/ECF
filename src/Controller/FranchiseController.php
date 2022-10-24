@@ -32,6 +32,10 @@ class FranchiseController extends AbstractController
         $permission = $doctrine->getRepository(Permissions::class)->findAll();
         $userPerm = $franchise->getPermissions();
 
+        if (!$getUser) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if ($getUser->getRoles() != ['ROLE_ADMIN']) {
             if (!$getUser->isVerified()) {
                 return $this->redirectToRoute('password_change');

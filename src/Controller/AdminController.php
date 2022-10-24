@@ -21,6 +21,10 @@ class AdminController extends AbstractController
     {
         $user = $this->getUser();
 
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if ($_POST) {
             $result = json_decode($request->request->get('data'), true);
             $result = $result['data'][0]['value'];

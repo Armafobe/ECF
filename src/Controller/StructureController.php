@@ -30,6 +30,10 @@ class StructureController extends AbstractController
 
         $structure = $doctrine->getRepository(Structure::class)->findOneBy(array('id' => $id));
 
+        if (!$getUser) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if ($getUser->getRoles() != ['ROLE_ADMIN']) {
             if (!$getUser->isVerified()) {
                 return $this->redirectToRoute('password_change');
