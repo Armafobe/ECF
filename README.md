@@ -21,3 +21,4 @@
   - DATABASE_URL => (url complet de la base de données présente dans le dashboard JawsDB MySQL)
   - MAIL_API_KEY => (clé mailjet si désiré pour éviter que la clé apparaisse dans le code)
   - MAIL_API_SECRET => (clé secrère mailjet, nécessaire avec MAIL_API_KEY)
+-Pour la migration sur fly.io, se rendre sur https://fly.io/launch/heroku et rentrer les informations requises de l'application Heroku pour la déployer sur fly.io.
