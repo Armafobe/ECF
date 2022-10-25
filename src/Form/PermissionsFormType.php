@@ -19,7 +19,7 @@ class PermissionsFormType extends AbstractType
     {
         $builder
             ->add('permissions', ChoiceType::class, [
-                'label' => 'Vendre des boissons',
+                'label' => ' ',
                 'required' => false
             ])
             ->add('submit', ButtonType::class)
