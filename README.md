@@ -13,7 +13,7 @@
 - Si il n'existe pas, créer un fichier Procfile à la racine du projet et écrire "web: vendor/bin/heroku-php-apache2 public/" puis sauvegarder.
 - S'assurer que le package Apache est bien installé pour que le fichier public/.htaccess soit créé.
 - Dans l'onglet Resources, télécharger JawsDB MySQL en choisissant l'option gratuite.
-- Après quoi sur MySQL Workbench ou PhpMyAdmin, créer une nouvelle connexion en rentrant les identifiants de base de données présentes en cliquant sur JawsDB MySQL.
+- Après quoi sur MySQL Workbench ou PhpMyAdmin, créer une nouvelle connexion en rentrant les identifiants de base de données présentes dans le Dashboard JawsDB MySQL.
 - Dans l'onglet Settings, rentrer les variables d'environnement nécessaires :
   - APP_DEBUG => 0
   - APP_ENV => PROD (si également prod dans le fichier .env)
