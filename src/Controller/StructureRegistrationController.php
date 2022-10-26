@@ -25,10 +25,19 @@ class StructureRegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $mail = new Mail();
-            $mail->send($form->get('email')->getData(), $form->get('address')->getData(), 'Identifiants de connexion', $form->get('address')->getData(), $form->get('email')->getData(), $form->get('password')->getData());
+            $mail->send(
+                $form->get('email')->getData(),
+                $form->get('address')->getData(),
+                'Identifiants de connexion',
+                $form->get('address')->getData(),
+                $form->get('email')->getData(),
+                $form->get('password')->getData());
 
             $mail_structure = new MailStructure();
-            $mail_structure->send($form->get('user')->getData()->getEmail(), $form->get('user')->getData()->getName(), 'Nouvelle structure');
+            $mail_structure->send(
+                $form->get('user')->getData()->getEmail(),
+                $form->get('user')->getData()->getName(),
+                'Nouvelle structure');
 
             $structure->setPassword(
                 $userPasswordHasher->hashPassword(

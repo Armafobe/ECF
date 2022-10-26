@@ -30,8 +30,14 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $mail = new Mail();
-            $mail->send($form->get('email')->getData(), $form->get('name')->getData(), 'Identifiants de connexion', $form->get('email')->getData(), $form->get('email')->getData(), $form->get('password')->getData());
-            
+            $mail->send(
+                $form->get('email')->getData(),
+                $form->get('name')->getData(),
+                'Identifiants de connexion',
+                $form->get('email')->getData(),
+                $form->get('email')->getData(),
+                $form->get('password')->getData());
+
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
