@@ -17,9 +17,7 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'invalid_message' => 'Merci de saisir une adresse mail valide'
-            ])
+            ->add('email', EmailType::class)
             ->add('name', TextType::class)
             ->add('password', PasswordType::class, [
                 'mapped' => false,
@@ -29,11 +27,10 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Entrez un mot de passe',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 1,
                         'max' => 4096,
                     ]),
                 ],
-                'invalid_message' => 'Le mot de passe devrait avoir au moins 6 caractères'
             ])
         ;
     }
