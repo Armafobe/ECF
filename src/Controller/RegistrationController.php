@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Structure;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Security\Mail;
 use App\Security\MailStructure;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -28,9 +29,9 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $mail = new MailStructure();
-            $mail->send($form->get('email')->getData(), $form->get('name')->getData(), 'Identifiants de connexion', $form->get('name')->getData(), $form->get('email')->getData(), $form->get('password')->getData());
-
+            $mail = new Mail();
+            $mail->send($form->get('email')->getData(), $form->get('name')->getData(), 'Identifiants de connexion', $form->get('email')->getData(), $form->get('email')->getData(), $form->get('password')->getData());
+            
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
