@@ -25,8 +25,8 @@
 
 # Guide de déploiement en local
 
-- ``git clone https://github.com/Armafobe/ECF.git``
-- ``composer install``
+- Dans un terminal de commande, écrire ``git clone https://github.com/Armafobe/ECF.git [nom_du_dossier_désiré_pour_le_clonage]`` 
+- Ouvrir le dossier précédemment créé dans PhpStorm, ouvrir le terminal et écrire ``composer install``
 - Changer la variable APP_ENV de prod à dev dans le fichier .env
 - ``composer require symfony/runtime``
 - ``yarn install``
