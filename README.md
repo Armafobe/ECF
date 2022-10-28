@@ -6,6 +6,8 @@
 - Possibilité d'activer ou désactiver un partenaire ou une structure dans sa page d'informations puis en cliquant sur le bouton correspondant et en validant la fenêtre pop-up. ATTENTION : Désactiver un partenaire désactivera toutes ses structures !
 - Possibilité de modifier les permissions d'un partenaire ou d'une structure dans sa page d'informations puis en cliquant sur les permissions souhaitées de sorte à ce qu'après validation, celles cochées seront les nouvelles permissions. Confirmer la pop-up pour valider le formulaire.
 
+- NB : mots de passe des utilisateurs : 123456 (sera à modifier à la première connexion).
+
 # Guide de déploiement sur Heroku plus migration sur fly.io
 
 - Créer une nouvelle application en région Europe.
