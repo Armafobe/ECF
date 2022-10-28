@@ -28,9 +28,8 @@
 - Dans un terminal de commande, écrire ``git clone https://github.com/Armafobe/ECF.git [nom_du_dossier_désiré_pour_le_clonage]`` 
 - Ouvrir le dossier précédemment créé dans PhpStorm, ouvrir le terminal et écrire ``composer install``
 - Changer la variable APP_ENV de prod à dev dans le fichier .env
-- ``composer require symfony/runtime``
 - ``yarn install``
-- ``symfony console doctrine:migrations:migrate``
+- ``symfony console doctrine:migrations:migrate`` (si la commande échoue, rentrer ``composer require symfony/runtime``)
 - ``symfony serve``
 - ``yarn watch``
 - Enjoy !
