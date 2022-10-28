@@ -6,8 +6,6 @@
 - Possibilité d'activer ou désactiver un partenaire ou une structure dans sa page d'informations puis en cliquant sur le bouton correspondant et en validant la fenêtre pop-up. ATTENTION : Désactiver un partenaire désactivera toutes ses structures !
 - Possibilité de modifier les permissions d'un partenaire ou d'une structure dans sa page d'informations puis en cliquant sur les permissions souhaitées de sorte à ce qu'après validation, celles cochées seront les nouvelles permissions. Confirmer la pop-up pour valider le formulaire.
 
-- Identifiants des utilisateurs : [ville]@haltere-ego.com / 123456 (sera à modifier à la première connexion).
-
 # Guide de déploiement sur Heroku plus migration sur fly.io
 
 - Créer une nouvelle application en région Europe.
@@ -24,3 +22,13 @@
   - MAIL_API_KEY => (clé mailjet si désiré pour éviter que la clé apparaisse dans le code)
   - MAIL_API_SECRET => (clé secrère mailjet, nécessaire avec MAIL_API_KEY)
 -Pour la migration sur fly.io, se rendre sur https://fly.io/launch/heroku et rentrer les informations requises de l'application Heroku pour la déployer sur fly.io.
+
+# Guide de déploiement en local
+
+- ``git clone https://github.com/Armafobe/ECF.git``
+- ``composer install``
+- ``symfony console doctrine:migrations:migrate``
+- ``yarn install``
+- ``symfony serve``
+- ``yarn watch``
+- Enjoy !
