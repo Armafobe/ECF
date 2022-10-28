@@ -14,14 +14,14 @@
 - S'assurer que le package Apache est bien installé pour que le fichier public/.htaccess soit créé.
 - Dans l'onglet Resources, télécharger JawsDB MySQL en choisissant l'option gratuite.
 - Après quoi sur MySQL Workbench ou PhpMyAdmin, créer une nouvelle connexion en rentrant les identifiants de base de données présentes dans le Dashboard JawsDB MySQL.
-- Dans l'onglet Settings, rentrer les variables d'environnement nécessaires :
+- Dans l'onglet Settingsde Heroku, rentrer les variables d'environnement nécessaires :
   - APP_DEBUG => 0
   - APP_ENV => PROD (si également prod dans le fichier .env)
   - APP_SECRET => (clé secrète de l'app présente dans le fichier .env)
   - DATABASE_URL => (url complet de la base de données présente dans le dashboard JawsDB MySQL)
   - MAIL_API_KEY => (clé mailjet si désiré pour éviter que la clé apparaisse dans le code)
   - MAIL_API_SECRET => (clé secrère mailjet, nécessaire avec MAIL_API_KEY)
--Pour la migration sur fly.io, se rendre sur https://fly.io/launch/heroku et rentrer les informations requises de l'application Heroku pour la déployer sur fly.io.
+- Pour la migration sur fly.io, se rendre sur https://fly.io/launch/heroku et rentrer les informations requises de l'application Heroku pour la déployer sur fly.io.
 
 # Guide de déploiement en local
 
