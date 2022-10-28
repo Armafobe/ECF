@@ -27,8 +27,10 @@
 
 - ``git clone https://github.com/Armafobe/ECF.git``
 - ``composer install``
-- ``symfony console doctrine:migrations:migrate``
+- Changer la variable APP_ENV de prod à dev dans le fichier .env
+- ``composer require symfony/runtime``
 - ``yarn install``
+- ``symfony console doctrine:migrations:migrate``
 - ``symfony serve``
 - ``yarn watch``
 - Enjoy !
